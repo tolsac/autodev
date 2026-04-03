@@ -60,8 +60,9 @@ urlpatterns = [
         "api/v1/invitations/<str:token>/accept/",
         include([]),  # handled in organizations.urls
     ),
-    # LLM Models
+    # LLM Models + OpenRouter
     path("api/v1/llm-models/", views_agents.LLMModelsView.as_view(), name="llm-models"),
+    path("api/v1/orgs/<slug:org_slug>/openrouter/validate/", views_agents.ValidateOpenRouterKeyView.as_view(), name="validate-openrouter-key"),
     # GitHub App callback (redirect from GitHub, not org-scoped)
     path("api/v1/scm/github/callback/", scm_views.GitHubCallbackView.as_view(), name="github-callback"),
     # Webhooks

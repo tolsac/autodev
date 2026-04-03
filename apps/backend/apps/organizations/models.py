@@ -21,6 +21,9 @@ class Organization(models.Model):
         default="in_app",
         choices=[("in_app", "In-App"), ("slack", "Slack"), ("email", "Email")],
     )
+    # OpenRouter API key (encrypted)
+    openrouter_api_key_encrypted = models.TextField(db_column="openrouter_api_key", blank=True, default="")
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -29,6 +32,20 @@ class Organization(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def openrouter_api_key(self) -> str:
+        from apps.core.encryption import decrypt_field
+        return decrypt_field(self.openrouter_api_key_encrypted) if self.openrouter_api_key_encrypted else ""
+
+    @openrouter_api_key.setter
+    def openrouter_api_key(self, value: str):
+        from apps.core.encryption import encrypt_field
+        self.openrouter_api_key_encrypted = encrypt_field(value) if value else ""
+
+    @property
+    def has_openrouter_key(self) -> bool:
+        return bool(self.openrouter_api_key_encrypted)
 
 
 class Membership(models.Model):

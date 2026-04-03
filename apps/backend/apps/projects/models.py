@@ -62,6 +62,8 @@ class Project(models.Model):
     # Archive
     is_archived = models.BooleanField(default=False)
     archived_at = models.DateTimeField(null=True, blank=True)
+    # OpenRouter API key override (encrypted)
+    openrouter_api_key_override_encrypted = models.TextField(db_column="openrouter_api_key_override", blank=True, default="")
 
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -86,6 +88,20 @@ class Project(models.Model):
         self.ticket_counter += 1
         self.save(update_fields=["ticket_counter"])
         return f"{self.ticket_prefix}-{self.ticket_counter}"
+
+    @property
+    def openrouter_api_key_override(self) -> str:
+        from apps.core.encryption import decrypt_field
+        return decrypt_field(self.openrouter_api_key_override_encrypted) if self.openrouter_api_key_override_encrypted else ""
+
+    @openrouter_api_key_override.setter
+    def openrouter_api_key_override(self, value: str):
+        from apps.core.encryption import encrypt_field
+        self.openrouter_api_key_override_encrypted = encrypt_field(value) if value else ""
+
+    @property
+    def has_openrouter_key_override(self) -> bool:
+        return bool(self.openrouter_api_key_override_encrypted)
 
 
 class ProjectMembership(models.Model):

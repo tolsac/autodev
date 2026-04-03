@@ -4,6 +4,7 @@ import MarkdownRenderer from "@/components/shared/MarkdownRenderer";
 import PriorityIndicator from "./PriorityIndicator";
 import AgentStatusBadges from "./AgentStatusBadges";
 import TicketCreateModal from "./TicketCreateModal";
+import ImpactedReposEditor from "./ImpactedReposEditor";
 
 export default function TicketDetailModal({
   orgSlug,
@@ -148,21 +149,13 @@ export default function TicketDetailModal({
 
                 <div className="h-px bg-white/5" />
 
-                {ticket.impacted_repos && ticket.impacted_repos.length > 0 && (
-                  <SidebarField label="Repos impactes">
-                    <div className="space-y-1">
-                      {ticket.impacted_repos.map((r) => (
-                        <div key={r.id}>
-                          {r.html_url ? (
-                            <a href={r.html_url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline">{r.full_name}</a>
-                          ) : (
-                            <span className="text-xs text-foreground">{r.full_name}</span>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </SidebarField>
-                )}
+                <ImpactedReposEditor
+                  orgSlug={orgSlug}
+                  projectSlug={projectSlug}
+                  ticketKey={ticketKey!}
+                  impactedRepos={ticket.impacted_repos ?? []}
+                  availableRepos={(ticket as any).available_repos ?? []}
+                />
 
                 <div className="h-px bg-white/5" />
 

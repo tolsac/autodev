@@ -226,3 +226,31 @@ class LLMModelsView(APIView):
     def get(self, request):
         from .llm_models import AVAILABLE_LLM_MODELS
         return Response(LLMModelSerializer(AVAILABLE_LLM_MODELS, many=True).data)
+
+
+class ValidateOpenRouterKeyView(APIView):
+    def post(self, request, org_slug):
+        import httpx
+        api_key = request.data.get("api_key", "")
+        if not api_key:
+            return Response({"valid": False, "error": "Cle API manquante."}, status=400)
+        try:
+            resp = httpx.get(
+                "https://openrouter.ai/api/v1/auth/key",
+                headers={"Authorization": f"Bearer {api_key}"},
+                timeout=10,
+            )
+            if resp.status_code == 200:
+                data = resp.json().get("data", {})
+                return Response({
+                    "valid": True,
+                    "label": data.get("label", ""),
+                    "usage": data.get("usage", 0),
+                    "limit": data.get("limit"),
+                    "limit_remaining": data.get("limit_remaining"),
+                })
+            return Response({"valid": False, "error": "Cle invalide ou expiree."}, status=400)
+        except httpx.TimeoutException:
+            return Response({"valid": False, "error": "OpenRouter timeout."}, status=502)
+        except Exception as e:
+            return Response({"valid": False, "error": str(e)}, status=502)

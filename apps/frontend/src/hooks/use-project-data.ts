@@ -44,3 +44,27 @@ export function useProjectLabels(orgSlug: string, projectSlug: string) {
     enabled: !!orgSlug && !!projectSlug,
   });
 }
+
+export interface ProjectRepoItem {
+  id: string;
+  repository: {
+    id: string;
+    name: string;
+    full_name: string;
+    html_url: string;
+    indexing_status: string;
+  };
+  is_default: boolean;
+  target_branch_override: string;
+}
+
+export function useProjectRepos(orgSlug: string, projectSlug: string) {
+  return useQuery<ProjectRepoItem[]>({
+    queryKey: ["project-repos", orgSlug, projectSlug],
+    queryFn: async () => {
+      const data = await api.get<any>(`/orgs/${orgSlug}/projects/${projectSlug}/repositories/`);
+      return data.results ?? data;
+    },
+    enabled: !!orgSlug && !!projectSlug,
+  });
+}

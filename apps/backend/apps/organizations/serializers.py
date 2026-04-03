@@ -87,11 +87,16 @@ class OrganizationSettingsSerializer(serializers.ModelSerializer):
     member_count = serializers.SerializerMethodField()
     project_count = serializers.SerializerMethodField()
 
+    has_openrouter_key = serializers.BooleanField(read_only=True)
+    openrouter_api_key = serializers.CharField(write_only=True, required=False, allow_blank=True)
+    openrouter_api_key_preview = serializers.SerializerMethodField()
+
     class Meta:
         model = Organization
         fields = [
             "id", "name", "slug", "logo_url", "timezone",
             "default_notification_channel",
+            "has_openrouter_key", "openrouter_api_key", "openrouter_api_key_preview",
             "member_count", "project_count",
             "created_at", "updated_at",
         ]
@@ -102,3 +107,16 @@ class OrganizationSettingsSerializer(serializers.ModelSerializer):
 
     def get_project_count(self, obj):
         return obj.projects.filter(is_archived=False).count()
+
+    def get_openrouter_api_key_preview(self, obj) -> str:
+        key = obj.openrouter_api_key
+        if key and len(key) > 8:
+            return "••••••••" + key[-8:]
+        return ""
+
+    def update(self, instance, validated_data):
+        api_key = validated_data.pop("openrouter_api_key", None)
+        if api_key is not None:
+            instance.openrouter_api_key = api_key
+            instance.save(update_fields=["openrouter_api_key_encrypted"])
+        return super().update(instance, validated_data)

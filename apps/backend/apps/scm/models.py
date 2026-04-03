@@ -103,6 +103,7 @@ class ProjectRepository(models.Model):
         Repository, on_delete=models.CASCADE, related_name="project_links"
     )
     target_branch_override = models.CharField(max_length=255, blank=True)
+    is_default = models.BooleanField(default=True)
     linked_at = models.DateTimeField(auto_now_add=True)
     linked_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,

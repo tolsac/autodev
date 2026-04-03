@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { OrgSettings } from "@/hooks/use-org-settings";
 import { useUpdateOrgSettings } from "@/hooks/use-org-settings";
+import OpenRouterKeyConfig from "@/components/settings/OpenRouterKeyConfig";
 
 export default function OrgSettingsGeneral({ settings, orgSlug }: { settings: OrgSettings; orgSlug: string }) {
   const [name, setName] = useState(settings.name);
@@ -48,6 +49,17 @@ export default function OrgSettingsGeneral({ settings, orgSlug }: { settings: Or
       <div className="rounded-lg border border-white/5 p-4 text-xs text-[#8b8b9e]">
         <p>{settings.member_count} membre{settings.member_count !== 1 ? "s" : ""} &middot; {settings.project_count} projet{settings.project_count !== 1 ? "s" : ""} actif{settings.project_count !== 1 ? "s" : ""}</p>
       </div>
+
+      <div className="h-px bg-white/5" />
+
+      <OpenRouterKeyConfig
+        level="organization"
+        orgSlug={orgSlug}
+        hasKey={(settings as any).has_openrouter_key ?? false}
+        keyPreview={(settings as any).openrouter_api_key_preview ?? ""}
+        onSave={async (key) => { update.mutate({ openrouter_api_key: key } as any); }}
+        onClear={async () => { update.mutate({ openrouter_api_key: "" } as any); }}
+      />
     </div>
   );
 }

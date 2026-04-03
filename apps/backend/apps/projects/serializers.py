@@ -108,6 +108,7 @@ class TicketDetailSerializer(serializers.ModelSerializer):
     column = ColumnMinimalSerializer(read_only=True)
     comments = serializers.SerializerMethodField()
     impacted_repos = RepositoryMinimalSerializer(many=True, read_only=True)
+    available_repos = serializers.SerializerMethodField()
 
     class Meta:
         model = Ticket
@@ -116,12 +117,18 @@ class TicketDetailSerializer(serializers.ModelSerializer):
             "priority", "position", "estimated_complexity",
             "column", "project",
             "assigned_to", "created_by",
-            "labels", "impacted_repos", "comments",
+            "labels", "impacted_repos", "available_repos", "comments",
             "challenge_status", "plan_status", "code_status",
             "review_status", "fix_status",
             "created_at", "updated_at",
         ]
         read_only_fields = fields
+
+    def get_available_repos(self, obj):
+        from apps.scm.models import Repository
+        impacted_ids = set(obj.impacted_repos.values_list("id", flat=True))
+        available = Repository.objects.filter(project_links__project=obj.project).exclude(id__in=impacted_ids)
+        return RepositoryMinimalSerializer(available, many=True).data
 
     def get_comments(self, obj):
         # Only top-level comments; replies are nested via SerializerMethodField
@@ -177,6 +184,14 @@ class TicketCreateSerializer(serializers.ModelSerializer):
         )
         if label_ids:
             ticket.labels.set(label_ids)
+
+        # Auto-fill with default repos if none specified
+        if not repo_ids:
+            from apps.scm.models import ProjectRepository
+            repo_ids = list(
+                ProjectRepository.objects.filter(project=project, is_default=True)
+                .values_list("repository_id", flat=True)
+            )
         if repo_ids:
             ticket.impacted_repos.set(repo_ids)
         return ticket

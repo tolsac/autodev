@@ -52,7 +52,7 @@ class ProjectRepositorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProjectRepository
-        fields = ["id", "repository", "target_branch_override", "linked_at"]
+        fields = ["id", "repository", "target_branch_override", "is_default", "linked_at"]
         read_only_fields = ["id", "linked_at"]
 
 

@@ -309,6 +309,14 @@ class TicketViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         ticket = serializer.save()
+
+        # Evaluate agent triggers
+        try:
+            from apps.agents.engine.trigger_evaluator import evaluate_triggers_for_event
+            evaluate_triggers_for_event(ticket.project, ticket, "ticket_created")
+        except Exception:
+            pass  # Don't fail ticket creation if trigger eval fails
+
         return Response(
             TicketListSerializer(ticket).data,
             status=status.HTTP_201_CREATED,
@@ -319,9 +327,38 @@ class TicketViewSet(viewsets.ModelViewSet):
         ticket = self.get_object()
         serializer = TicketMoveSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        old_column_id = str(ticket.column_id)
         ticket.column_id = serializer.validated_data["column_id"]
         ticket.position = serializer.validated_data["position"]
         ticket.save(update_fields=["column_id", "position", "updated_at"])
+
+        # Evaluate agent triggers for move
+        try:
+            from apps.agents.engine.trigger_evaluator import evaluate_triggers_for_event
+            evaluate_triggers_for_event(
+                ticket.project, ticket, "ticket_moved",
+                source_column_id=old_column_id,
+                target_column_id=str(ticket.column_id),
+            )
+        except Exception:
+            pass
+        return Response(TicketDetailSerializer(ticket).data)
+
+    # --- Impacted Repos ---
+    @action(detail=True, methods=["patch"], url_path="impacted-repos")
+    def update_impacted_repos(self, request, **kwargs):
+        ticket = self.get_object()
+        repo_ids = request.data.get("repository_ids", [])
+        from apps.scm.models import ProjectRepository
+        linked_ids = set(
+            str(rid) for rid in ProjectRepository.objects.filter(
+                project=ticket.project
+            ).values_list("repository_id", flat=True)
+        )
+        for rid in repo_ids:
+            if str(rid) not in linked_ids:
+                return Response({"error": f"Repo {rid} not linked to project."}, status=status.HTTP_400_BAD_REQUEST)
+        ticket.impacted_repos.set(repo_ids)
         return Response(TicketDetailSerializer(ticket).data)
 
     # --- Comments ---

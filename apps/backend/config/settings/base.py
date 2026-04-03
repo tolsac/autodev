@@ -143,6 +143,9 @@ CORS_ALLOWED_ORIGINS = os.environ.get(
     "CORS_ALLOWED_ORIGINS", "http://localhost:5173"
 ).split(",")
 
+# Encryption
+FIELD_ENCRYPTION_KEY = os.environ.get("FIELD_ENCRYPTION_KEY", "")
+
 # GitHub App
 GITHUB_APP_ID = os.environ.get("GITHUB_APP_ID", "")
 _github_pk = os.environ.get("GITHUB_APP_PRIVATE_KEY", "")
