@@ -1,0 +1,12 @@
+:root {
+  --bg: #09090b;
+  --fg: #fafafa;
+  --primary: #6366f1;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Inter", system-ui, sans-serif;
+}
