@@ -17,8 +17,8 @@ export default function OrgSettingsDanger({ orgName, orgSlug }: { orgName: strin
           Cette action est irreversible. Tous les projets, tickets, donnees d'agents et historiques seront definitivement supprimes. L'abonnement Stripe sera automatiquement annule.
         </p>
         <div className="space-y-1.5">
-          <label className="text-xs font-medium text-[#8b8b9e]">Pour confirmer, tapez le nom de l'organisation : <strong className="text-foreground">{orgName}</strong></label>
-          <input value={confirmName} onChange={(e) => setConfirmName(e.target.value)} placeholder={orgName} className="h-10 w-full rounded-lg border border-destructive/30 bg-[#0c0c14] px-3 text-sm text-foreground focus:border-destructive focus:outline-none focus:ring-1 focus:ring-destructive/50" />
+          <label className="text-xs font-medium text-muted-foreground">Pour confirmer, tapez le nom de l'organisation : <strong className="text-foreground">{orgName}</strong></label>
+          <input value={confirmName} onChange={(e) => setConfirmName(e.target.value)} placeholder={orgName} className="h-10 w-full rounded-lg border border-destructive/30 bg-surface px-3 text-sm text-foreground focus:border-destructive focus:outline-none focus:ring-1 focus:ring-destructive/50" />
         </div>
         <div className="flex justify-end">
           <button onClick={() => deleteOrg.mutate(confirmName)} disabled={!isMatch || deleteOrg.isPending} className="h-9 rounded-lg bg-destructive px-4 text-sm font-medium text-white hover:bg-destructive/90 disabled:opacity-30">

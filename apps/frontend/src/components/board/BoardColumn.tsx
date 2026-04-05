@@ -26,21 +26,21 @@ export default function BoardColumn({
   const ticketIds = column.tickets.map((t) => t.id);
 
   return (
-    <div className="flex h-full w-72 flex-shrink-0 flex-col rounded-xl bg-[#0c0c14]">
+    <div className="flex h-full w-72 flex-shrink-0 flex-col rounded-xl bg-surface">
       {/* Header */}
       <div className="flex items-center justify-between px-3 py-3">
         <div className="flex items-center gap-2">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8b8b9e]">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             {column.name}
           </h3>
-          <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-white/5 px-1.5 text-[10px] font-medium text-[#8b8b9e]">
+          <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-foreground/5 px-1.5 text-[10px] font-medium text-muted-foreground">
             {column.tickets.length}
           </span>
           {hasAutoTrigger && (
             <span className="text-[10px]" title="Auto-trigger">&#129302;</span>
           )}
         </div>
-        <button className="text-[#8b8b9e] hover:text-foreground">
+        <button className="text-muted-foreground hover:text-foreground">
           <svg className="size-4" viewBox="0 0 24 24" fill="currentColor">
             <circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" />
           </svg>
@@ -70,7 +70,7 @@ export default function BoardColumn({
       {/* Add ticket button at bottom */}
       <button
         onClick={() => onAddTicket?.(column.id)}
-        className="flex items-center justify-center gap-1.5 border-t border-white/5 px-3 py-2.5 text-xs text-[#8b8b9e] transition-colors hover:text-foreground"
+        className="flex items-center justify-center gap-1.5 border-t border-foreground/5 px-3 py-2.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
       >
         <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />

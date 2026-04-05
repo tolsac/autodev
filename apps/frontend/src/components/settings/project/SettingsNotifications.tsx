@@ -29,8 +29,8 @@ export default function SettingsNotifications({ settings, orgSlug, projectSlug }
   return (
     <div className="max-w-2xl space-y-6">
       <div className="space-y-1.5">
-        <label className="text-xs font-medium text-[#8b8b9e]">Canal par defaut (override l'organisation)</label>
-        <select value={channel} onChange={(e) => setChannel(e.target.value)} className="h-10 w-full rounded-lg border border-white/10 bg-[#0c0c14] px-3 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+        <label className="text-xs font-medium text-muted-foreground">Canal par defaut (override l'organisation)</label>
+        <select value={channel} onChange={(e) => setChannel(e.target.value)} className="h-10 w-full rounded-lg border border-foreground/10 bg-surface px-3 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
           <option value="">Utiliser le defaut orga</option>
           <option value="in_app">In-App</option>
           <option value="slack">Slack</option>
@@ -38,7 +38,7 @@ export default function SettingsNotifications({ settings, orgSlug, projectSlug }
         </select>
       </div>
 
-      <div className="h-px bg-white/5" />
+      <div className="h-px bg-foreground/5" />
 
       <div className="space-y-4">
         <h3 className="text-sm font-medium text-foreground">Types de notifications actives</h3>
@@ -52,7 +52,7 @@ export default function SettingsNotifications({ settings, orgSlug, projectSlug }
             />
             <div>
               <div className="text-sm text-foreground">{t.label}</div>
-              <div className="text-xs text-[#8b8b9e]">{t.desc}</div>
+              <div className="text-xs text-muted-foreground">{t.desc}</div>
             </div>
           </label>
         ))}

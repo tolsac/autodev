@@ -12,9 +12,9 @@ export default function Sidebar() {
   const projectSlug = route.projectSlug ?? currentProject?.slug ?? null;
 
   return (
-    <aside className="flex w-[220px] flex-shrink-0 flex-col bg-[#0c0c14] text-sm">
+    <aside className="flex w-[220px] flex-shrink-0 flex-col bg-surface text-sm">
       {/* Org + Project header */}
-      <div className="border-b border-white/5 px-4 py-4">
+      <div className="border-b border-foreground/5 px-4 py-4">
         <div className="flex items-center gap-2">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/20 text-xs font-bold text-primary">
             {currentOrg?.name?.[0] ?? "A"}
@@ -43,7 +43,7 @@ export default function Sidebar() {
       <nav className="flex-1 space-y-0.5 px-2">
         {projectSlug && orgSlug && (
           <>
-            <div className="px-3 pb-1 pt-0.5 text-[11px] font-semibold uppercase tracking-wider text-[#555566]">
+            <div className="px-3 pb-1 pt-0.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60">
               Projet
             </div>
             <NavItem
@@ -87,10 +87,10 @@ export default function Sidebar() {
       </nav>
 
       {/* Bottom section — Organisation */}
-      <div className="border-t border-white/5 px-2 py-3 space-y-0.5">
+      <div className="border-t border-foreground/5 px-2 py-3 space-y-0.5">
         {orgSlug && (
           <>
-            <div className="px-3 pb-1 pt-0.5 text-[11px] font-semibold uppercase tracking-wider text-[#555566]">
+            <div className="px-3 pb-1 pt-0.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60">
               Organisation
             </div>
             <NavItem
@@ -131,7 +131,7 @@ function NavItem({
       className={`flex items-center gap-2.5 rounded-lg px-3 py-2 transition-colors ${
         active
           ? "bg-primary/15 font-medium text-primary"
-          : "text-[#8b8b9e] hover:bg-white/5 hover:text-foreground"
+          : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
       }`}
     >
       {icon}
@@ -154,7 +154,7 @@ function ProjectSelector({ orgSlug }: { orgSlug: string }) {
       {/* Trigger button */}
       <button
         onClick={() => setOpen(true)}
-        className="flex w-full items-center gap-2 rounded-lg border border-white/5 px-3 py-2.5 text-left transition-colors hover:bg-white/5"
+        className="flex w-full items-center gap-2 rounded-lg border border-foreground/5 px-3 py-2.5 text-left transition-colors hover:bg-foreground/5"
       >
         <span
           className="h-3 w-3 rounded-sm flex-shrink-0"
@@ -163,18 +163,18 @@ function ProjectSelector({ orgSlug }: { orgSlug: string }) {
         <span className="flex-1 truncate text-sm text-foreground">
           {currentProject?.name ?? "Choisir un projet"}
         </span>
-        <svg className="size-3.5 flex-shrink-0 text-[#8b8b9e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m7 15 5 5 5-5" /><path d="m7 9 5-5 5 5" /></svg>
+        <svg className="size-3.5 flex-shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m7 15 5 5 5-5" /><path d="m7 9 5-5 5 5" /></svg>
       </button>
 
       {/* Modal */}
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/60" onClick={() => setOpen(false)} />
-          <div className="relative z-10 w-full max-w-sm rounded-xl border border-white/5 bg-[#13131d] shadow-2xl">
+          <div className="relative z-10 w-full max-w-sm rounded-xl border border-foreground/5 bg-surface-elevated shadow-2xl">
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-white/5 px-5 py-4">
+            <div className="flex items-center justify-between border-b border-foreground/5 px-5 py-4">
               <h2 className="text-sm font-semibold text-foreground">Choisir un projet</h2>
-              <button onClick={() => setOpen(false)} className="flex h-6 w-6 items-center justify-center rounded text-[#8b8b9e] hover:text-foreground">
+              <button onClick={() => setOpen(false)} className="flex h-6 w-6 items-center justify-center rounded text-muted-foreground hover:text-foreground">
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
               </button>
             </div>
@@ -182,7 +182,7 @@ function ProjectSelector({ orgSlug }: { orgSlug: string }) {
             {/* Project list */}
             <div className="max-h-[50vh] overflow-y-auto py-2">
               {(!projects || projects.length === 0) ? (
-                <p className="px-5 py-4 text-center text-sm text-[#8b8b9e]">Aucun projet. Creez-en un pour commencer.</p>
+                <p className="px-5 py-4 text-center text-sm text-muted-foreground">Aucun projet. Creez-en un pour commencer.</p>
               ) : (
                 projects.map((project) => (
                   <button
@@ -192,13 +192,13 @@ function ProjectSelector({ orgSlug }: { orgSlug: string }) {
                       navigate(`/${orgSlug}/${project.slug}/board`);
                       setOpen(false);
                     }}
-                    className={`flex w-full items-center gap-3 px-5 py-2.5 transition-colors hover:bg-white/5 ${
-                      currentProject?.id === project.id ? "bg-white/[0.03]" : ""
+                    className={`flex w-full items-center gap-3 px-5 py-2.5 transition-colors hover:bg-foreground/5 ${
+                      currentProject?.id === project.id ? "bg-foreground/[0.03]" : ""
                     }`}
                   >
                     <span className="h-3 w-3 rounded-sm flex-shrink-0" style={{ backgroundColor: project.color }} />
                     <span className="flex-1 truncate text-left text-sm text-foreground">{project.name}</span>
-                    <span className="text-[10px] text-[#555566]">{project.ticket_prefix}</span>
+                    <span className="text-[10px] text-muted-foreground/60">{project.ticket_prefix}</span>
                     {currentProject?.id === project.id && (
                       <svg className="size-4 flex-shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
                     )}
@@ -208,11 +208,11 @@ function ProjectSelector({ orgSlug }: { orgSlug: string }) {
             </div>
 
             {/* Footer */}
-            <div className="border-t border-white/5 px-5 py-3">
+            <div className="border-t border-foreground/5 px-5 py-3">
               <Link
                 to={`/${orgSlug}/settings/projects?create=true`}
                 onClick={() => setOpen(false)}
-                className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/10 py-2 text-xs text-[#8b8b9e] transition-colors hover:border-white/20 hover:text-foreground"
+                className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-foreground/10 py-2 text-xs text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground"
               >
                 <PlusIcon />
                 Nouveau projet

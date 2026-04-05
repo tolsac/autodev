@@ -18,16 +18,16 @@ export default function SettingsBoard({ orgSlug, projectSlug }: { orgSlug: strin
       <h3 className="text-sm font-medium text-foreground">Colonnes du board</h3>
       <div className="space-y-1">
         {columns?.map((col) => (
-          <div key={col.id} className="flex items-center gap-3 rounded-lg border border-white/5 px-4 py-3">
-            <span className="text-[#8b8b9e] cursor-grab">&#8801;</span>
+          <div key={col.id} className="flex items-center gap-3 rounded-lg border border-foreground/5 px-4 py-3">
+            <span className="text-muted-foreground cursor-grab">&#8801;</span>
             <span className="h-3 w-3 rounded-sm" style={{ backgroundColor: col.color }} />
             <span className="flex-1 text-sm text-foreground">{col.name}</span>
-            <span className="text-xs text-[#555566]">WIP: {col.wip_limit ?? "—"}</span>
-            <span className="text-xs text-[#555566]">{col.triggers.length} trigger{col.triggers.length !== 1 ? "s" : ""}</span>
+            <span className="text-xs text-muted-foreground/60">WIP: {col.wip_limit ?? "—"}</span>
+            <span className="text-xs text-muted-foreground/60">{col.triggers.length} trigger{col.triggers.length !== 1 ? "s" : ""}</span>
           </div>
         ))}
       </div>
-      <p className="text-xs text-[#8b8b9e]">Le reordonnement et la configuration des triggers sont a venir.</p>
+      <p className="text-xs text-muted-foreground">Le reordonnement et la configuration des triggers sont a venir.</p>
     </div>
   );
 }

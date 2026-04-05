@@ -43,26 +43,26 @@ export default function RepoImportModal({ orgSlug, connection, open, onClose }: 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/60" onClick={onClose} />
-      <div className="relative z-10 flex w-full max-w-xl flex-col rounded-xl border border-white/5 bg-[#13131d] shadow-2xl" style={{ maxHeight: "80vh" }}>
+      <div className="relative z-10 flex w-full max-w-xl flex-col rounded-xl border border-foreground/5 bg-surface-elevated shadow-2xl" style={{ maxHeight: "80vh" }}>
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/5 px-6 py-4">
+        <div className="flex items-center justify-between border-b border-foreground/5 px-6 py-4">
           <div>
             <h2 className="text-base font-semibold text-foreground">Importer des repositories</h2>
-            <p className="text-xs text-[#8b8b9e]">Source : GitHub — {connection.external_org_name}</p>
+            <p className="text-xs text-muted-foreground">Source : GitHub — {connection.external_org_name}</p>
           </div>
-          <button onClick={onClose} className="text-[#8b8b9e] hover:text-foreground">
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
             <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
           </button>
         </div>
 
         {/* Search + select all */}
-        <div className="border-b border-white/5 px-6 py-3 space-y-2">
+        <div className="border-b border-foreground/5 px-6 py-3 space-y-2">
           <div className="relative">
-            <svg className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-[#8b8b9e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Rechercher un repo..." className="h-8 w-full rounded-lg border border-white/10 bg-[#0c0c14] pl-8 pr-3 text-xs text-foreground placeholder:text-[#8b8b9e] focus:border-primary focus:outline-none" />
+            <svg className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Rechercher un repo..." className="h-8 w-full rounded-lg border border-foreground/10 bg-surface pl-8 pr-3 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none" />
           </div>
           {data && (
-            <div className="flex items-center justify-between text-xs text-[#8b8b9e]">
+            <div className="flex items-center justify-between text-xs text-muted-foreground">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" checked={selected.size === filtered.length && filtered.length > 0} onChange={toggleAll} className="accent-primary" />
                 Tout selectionner ({filtered.length} repos)
@@ -75,20 +75,20 @@ export default function RepoImportModal({ orgSlug, connection, open, onClose }: 
         {/* Repo list */}
         <div className="flex-1 overflow-y-auto">
           {isLoading ? (
-            <div className="flex items-center justify-center py-12 text-[#8b8b9e]">Chargement des repos depuis GitHub...</div>
+            <div className="flex items-center justify-center py-12 text-muted-foreground">Chargement des repos depuis GitHub...</div>
           ) : filtered.length === 0 ? (
-            <div className="flex items-center justify-center py-12 text-[#8b8b9e]">Aucun repo disponible</div>
+            <div className="flex items-center justify-center py-12 text-muted-foreground">Aucun repo disponible</div>
           ) : (
             filtered.map((repo) => (
-              <label key={repo.external_id} className="flex items-start gap-3 border-b border-white/[0.03] px-6 py-3 cursor-pointer hover:bg-white/[0.02]">
+              <label key={repo.external_id} className="flex items-start gap-3 border-b border-foreground/[0.03] px-6 py-3 cursor-pointer hover:bg-foreground/[0.02]">
                 <input type="checkbox" checked={selected.has(repo.external_id)} onChange={() => toggle(repo.external_id)} className="mt-1 accent-primary" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-foreground truncate">{repo.full_name}</span>
-                    {repo.language && <span className="rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-[#8b8b9e]">{repo.language}</span>}
-                    <span className="rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-[#8b8b9e]">{repo.private ? "prive" : "public"}</span>
+                    {repo.language && <span className="rounded bg-foreground/5 px-1.5 py-0.5 text-[10px] text-muted-foreground">{repo.language}</span>}
+                    <span className="rounded bg-foreground/5 px-1.5 py-0.5 text-[10px] text-muted-foreground">{repo.private ? "prive" : "public"}</span>
                   </div>
-                  {repo.description && <p className="mt-0.5 text-xs text-[#555566] truncate">{repo.description}</p>}
+                  {repo.description && <p className="mt-0.5 text-xs text-muted-foreground/60 truncate">{repo.description}</p>}
                 </div>
               </label>
             ))
@@ -96,8 +96,8 @@ export default function RepoImportModal({ orgSlug, connection, open, onClose }: 
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-2 border-t border-white/5 px-6 py-3">
-          <button onClick={onClose} className="h-9 rounded-lg border border-white/10 px-4 text-sm text-[#8b8b9e] hover:text-foreground">Annuler</button>
+        <div className="flex items-center justify-end gap-2 border-t border-foreground/5 px-6 py-3">
+          <button onClick={onClose} className="h-9 rounded-lg border border-foreground/10 px-4 text-sm text-muted-foreground hover:text-foreground">Annuler</button>
           <button onClick={handleImport} disabled={selected.size === 0 || importRepos.isPending} className="h-9 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50">
             {importRepos.isPending ? "Import..." : `Importer ${selected.size} repo${selected.size !== 1 ? "s" : ""}`}
           </button>

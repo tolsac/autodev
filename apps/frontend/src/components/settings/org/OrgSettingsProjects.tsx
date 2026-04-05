@@ -40,8 +40,8 @@ export default function OrgSettingsProjects({ orgSlug }: { orgSlug: string }) {
       </div>
 
       {(!projects || projects.length === 0) ? (
-        <div className="rounded-lg border border-white/5 p-8 text-center">
-          <p className="text-sm text-[#8b8b9e]">Aucun projet dans cette organisation.</p>
+        <div className="rounded-lg border border-foreground/5 p-8 text-center">
+          <p className="text-sm text-muted-foreground">Aucun projet dans cette organisation.</p>
           <button onClick={() => setCreateOpen(true)} className="mt-3 text-sm text-primary hover:underline">
             Creer votre premier projet
           </button>
@@ -52,7 +52,7 @@ export default function OrgSettingsProjects({ orgSlug }: { orgSlug: string }) {
             <Link
               key={project.id}
               to={`/${orgSlug}/${project.slug}/board`}
-              className={`flex items-center gap-3 rounded-lg border border-white/5 px-4 py-3 transition-colors hover:bg-white/[0.02] ${project.is_archived ? "opacity-50" : ""}`}
+              className={`flex items-center gap-3 rounded-lg border border-foreground/5 px-4 py-3 transition-colors hover:bg-foreground/[0.02] ${project.is_archived ? "opacity-50" : ""}`}
             >
               <span
                 className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-sm font-bold"
@@ -63,26 +63,26 @@ export default function OrgSettingsProjects({ orgSlug }: { orgSlug: string }) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-medium text-foreground truncate">{project.name}</span>
-                  <span className="rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-[#8b8b9e]">{project.ticket_prefix}</span>
+                  <span className="rounded bg-foreground/5 px-1.5 py-0.5 text-[10px] text-muted-foreground">{project.ticket_prefix}</span>
                   {project.is_archived && <span className="rounded bg-yellow-500/10 px-1.5 py-0.5 text-[10px] text-yellow-500">Archive</span>}
                 </div>
                 {project.description && (
-                  <p className="mt-0.5 text-xs text-[#555566] truncate">{project.description}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground/60 truncate">{project.description}</p>
                 )}
               </div>
-              <div className="flex flex-shrink-0 items-center gap-4 text-[11px] text-[#555566]">
+              <div className="flex flex-shrink-0 items-center gap-4 text-[11px] text-muted-foreground/60">
                 <span>{project.ticket_count} tickets</span>
                 <span>{project.member_count} membre{project.member_count !== 1 ? "s" : ""}</span>
                 <span>{project.repo_count} repo{project.repo_count !== 1 ? "s" : ""}</span>
                 <span>{timeAgo(project.updated_at)}</span>
               </div>
-              <svg className="size-4 flex-shrink-0 text-[#555566]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="m9 18 6-6-6-6" /></svg>
+              <svg className="size-4 flex-shrink-0 text-muted-foreground/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="m9 18 6-6-6-6" /></svg>
             </Link>
           ))}
         </div>
       )}
 
-      <label className="flex items-center gap-2 text-xs text-[#8b8b9e] cursor-pointer">
+      <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer">
         <input type="checkbox" checked={showArchived} onChange={(e) => setShowArchived(e.target.checked)} className="accent-primary" />
         Afficher les projets archives
       </label>

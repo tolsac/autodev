@@ -69,7 +69,7 @@ export default function OpenRouterKeyConfig({
           <h4 className="text-sm font-semibold text-foreground">
             Cle API OpenRouter {level === "project" ? "(override projet)" : ""}
           </h4>
-          <p className="mt-0.5 text-xs text-[#8b8b9e]">
+          <p className="mt-0.5 text-xs text-muted-foreground">
             {level === "organization"
               ? "Utilisee par tous les projets de l'organisation."
               : "Surcharge la cle de l'organisation pour ce projet."}
@@ -83,7 +83,7 @@ export default function OpenRouterKeyConfig({
       {/* Effective source indicator (project level only) */}
       {level === "project" && effectiveSource && (
         <div className={`rounded-lg px-3 py-2 text-xs ${
-          effectiveSource === "none" ? "bg-destructive/10 text-destructive" : "bg-white/5 text-[#8b8b9e]"
+          effectiveSource === "none" ? "bg-destructive/10 text-destructive" : "bg-foreground/5 text-muted-foreground"
         }`}>
           {effectiveSource === "organization" && `Cle effective : Organisation (${keyPreview || "configuree"})`}
           {effectiveSource === "project" && `Cle effective : Ce projet (${keyPreview})`}
@@ -113,9 +113,9 @@ export default function OpenRouterKeyConfig({
                 onChange={(e) => { setApiKey(e.target.value); setValidation(null); }}
                 onFocus={() => { if (!editing) { setEditing(true); setApiKey(""); } }}
                 placeholder="sk-or-v1-..."
-                className="h-10 w-full rounded-lg border border-white/10 bg-[#0c0c14] px-3 pr-10 text-sm text-foreground placeholder:text-[#555566] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                className="h-10 w-full rounded-lg border border-foreground/10 bg-surface px-3 pr-10 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
-              <button onClick={() => setShowKey(!showKey)} className="absolute right-2 top-1/2 -translate-y-1/2 text-[#8b8b9e] hover:text-foreground">
+              <button onClick={() => setShowKey(!showKey)} className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                 {showKey ? (
                   <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" /><line x1="1" y1="1" x2="23" y2="23" /></svg>
                 ) : (
@@ -138,7 +138,7 @@ export default function OpenRouterKeyConfig({
 
           {/* Actions */}
           <div className="flex gap-2">
-            <button onClick={handleValidate} disabled={validating || !apiKey} className="h-8 rounded-lg border border-white/10 px-3 text-xs text-[#8b8b9e] hover:text-foreground disabled:opacity-50">
+            <button onClick={handleValidate} disabled={validating || !apiKey} className="h-8 rounded-lg border border-foreground/10 px-3 text-xs text-muted-foreground hover:text-foreground disabled:opacity-50">
               {validating ? "Verification..." : "Tester la cle"}
             </button>
             <button onClick={handleSave} disabled={saving || !apiKey} className="h-8 rounded-lg bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50">

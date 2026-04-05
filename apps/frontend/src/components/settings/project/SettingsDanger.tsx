@@ -17,12 +17,12 @@ export default function SettingsDanger({ projectName, orgSlug, projectSlug }: { 
           Cette action est irreversible. Tous les tickets, plans, analyses, commentaires et PRs generees seront definitivement supprimes. Les PRs sur GitHub/Bitbucket/GitLab ne seront PAS supprimees.
         </p>
         <div className="space-y-1.5">
-          <label className="text-xs font-medium text-[#8b8b9e]">Pour confirmer, tapez le nom du projet : <strong className="text-foreground">{projectName}</strong></label>
+          <label className="text-xs font-medium text-muted-foreground">Pour confirmer, tapez le nom du projet : <strong className="text-foreground">{projectName}</strong></label>
           <input
             value={confirmName}
             onChange={(e) => setConfirmName(e.target.value)}
             placeholder={projectName}
-            className="h-10 w-full rounded-lg border border-destructive/30 bg-[#0c0c14] px-3 text-sm text-foreground focus:border-destructive focus:outline-none focus:ring-1 focus:ring-destructive/50"
+            className="h-10 w-full rounded-lg border border-destructive/30 bg-surface px-3 text-sm text-foreground focus:border-destructive focus:outline-none focus:ring-1 focus:ring-destructive/50"
           />
         </div>
         <div className="flex justify-end">
