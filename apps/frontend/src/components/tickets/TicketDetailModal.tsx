@@ -26,7 +26,7 @@ export default function TicketDetailModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/60" onClick={onClose} />
 
-      <div className="relative z-10 flex h-[80vh] w-full max-w-[900px] flex-col rounded-xl border border-white/5 bg-background shadow-2xl">
+      <div className="relative z-10 flex h-[80vh] w-full max-w-[900px] flex-col rounded-xl border border-foreground/5 bg-background shadow-2xl">
         {isLoading || !ticket ? (
           <div className="flex flex-1 items-center justify-center text-muted-foreground">
             Chargement...
@@ -34,12 +34,12 @@ export default function TicketDetailModal({
         ) : (
           <>
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-white/5 px-6 py-4">
+            <div className="flex items-center justify-between border-b border-foreground/5 px-6 py-4">
               <div className="flex items-center gap-3">
                 <span className="font-mono text-sm text-muted-foreground">{ticket.ticket_key}</span>
                 <h2 className="text-lg font-semibold text-foreground">{ticket.title}</h2>
               </div>
-              <button onClick={onClose} className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-white/5 hover:text-foreground">
+              <button onClick={onClose} className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-foreground/5 hover:text-foreground">
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
               </button>
             </div>
@@ -93,10 +93,10 @@ export default function TicketDetailModal({
                 </div>
 
                 {/* Sticky bottom edit button */}
-                <div className="flex-shrink-0 border-t border-white/5 bg-background px-6 py-3">
+                <div className="flex-shrink-0 border-t border-foreground/5 bg-background px-6 py-3">
                   <button
                     onClick={() => setEditOpen(true)}
-                    className="flex h-9 items-center gap-2 rounded-lg border border-white/10 px-4 text-sm text-[#8b8b9e] transition-colors hover:bg-white/5 hover:text-foreground"
+                    className="flex h-9 items-center gap-2 rounded-lg border border-foreground/10 px-4 text-sm text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
                   >
                     <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" /><path d="m15 5 4 4" /></svg>
                     Modifier
@@ -105,9 +105,9 @@ export default function TicketDetailModal({
               </div>
 
               {/* Sidebar (fixed) */}
-              <div className="w-[280px] flex-shrink-0 border-l border-white/5 overflow-y-auto px-5 py-4 space-y-4 text-sm">
+              <div className="w-[280px] flex-shrink-0 border-l border-foreground/5 overflow-y-auto px-5 py-4 space-y-4 text-sm">
                 <SidebarField label="Colonne">
-                  <span className="inline-block rounded bg-white/5 px-2 py-0.5 text-xs font-medium" style={{ borderLeft: `3px solid ${(ticket.column as any)?.color ?? "#6B7280"}` }}>
+                  <span className="inline-block rounded bg-foreground/5 px-2 py-0.5 text-xs font-medium" style={{ borderLeft: `3px solid ${(ticket.column as any)?.color ?? "#6B7280"}` }}>
                     {(ticket.column as any)?.name ?? "—"}
                   </span>
                 </SidebarField>
@@ -147,7 +147,7 @@ export default function TicketDetailModal({
                   )}
                 </SidebarField>
 
-                <div className="h-px bg-white/5" />
+                <div className="h-px bg-foreground/5" />
 
                 <ImpactedReposEditor
                   orgSlug={orgSlug}
@@ -157,7 +157,7 @@ export default function TicketDetailModal({
                   availableRepos={(ticket as any).available_repos ?? []}
                 />
 
-                <div className="h-px bg-white/5" />
+                <div className="h-px bg-foreground/5" />
 
                 <SidebarField label="Cree par">
                   <span className="text-foreground">{ticket.created_by?.full_name ?? "—"}</span>
@@ -203,13 +203,13 @@ function SidebarField({ label, children }: { label: string; children: React.Reac
 function CommentBlock({ comment, depth = 0 }: { comment: CommentItem; depth?: number }) {
   const isAgent = comment.author_type === "agent";
   return (
-    <div className={depth > 0 ? "ml-4 border-l border-white/5 pl-3" : ""}>
-      <div className={`rounded-lg p-3 ${isAgent ? "bg-primary/5" : "bg-white/[0.02]"}`}>
+    <div className={depth > 0 ? "ml-4 border-l border-foreground/5 pl-3" : ""}>
+      <div className={`rounded-lg p-3 ${isAgent ? "bg-primary/5" : "bg-foreground/[0.02]"}`}>
         <div className="flex items-center gap-2 text-xs">
           {isAgent ? (
             <span className="flex h-5 w-5 items-center justify-center rounded bg-primary/20 text-[9px] font-bold text-primary">AI</span>
           ) : (
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-[9px] font-medium text-foreground">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-foreground/10 text-[9px] font-medium text-foreground">
               {(comment.author?.full_name ?? "?")[0].toUpperCase()}
             </span>
           )}

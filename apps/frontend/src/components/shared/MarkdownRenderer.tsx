@@ -20,13 +20,13 @@ export default function MarkdownRenderer({ content }: { content: string }) {
             const isBlock = className?.includes("language-");
             if (isBlock) {
               return (
-                <pre className="mb-2 overflow-x-auto rounded-lg bg-[#0c0c14] p-3 text-xs">
+                <pre className="mb-2 overflow-x-auto rounded-lg bg-surface p-3 text-xs">
                   <code className="font-mono text-foreground">{children}</code>
                 </pre>
               );
             }
             return (
-              <code className="rounded bg-[#0c0c14] px-1.5 py-0.5 font-mono text-xs text-foreground">
+              <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-xs text-foreground">
                 {children}
               </code>
             );

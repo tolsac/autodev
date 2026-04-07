@@ -71,9 +71,9 @@ export default function AgentConfigPanel({ config, orgSlug, projectSlug }: {
     });
   };
 
-  const labelClass = "text-xs font-medium text-[#8b8b9e]";
+  const labelClass = "text-xs font-medium text-muted-foreground";
   const sectionClass = "text-sm font-semibold text-foreground";
-  const selectClass = "h-9 w-full rounded-lg border border-white/10 bg-[#0c0c14] px-3 text-sm text-foreground focus:border-primary focus:outline-none";
+  const selectClass = "h-9 w-full rounded-lg border border-foreground/10 bg-surface px-3 text-sm text-foreground focus:border-primary focus:outline-none";
   const disabled = !config.is_enabled;
 
   return (
@@ -82,9 +82,9 @@ export default function AgentConfigPanel({ config, orgSlug, projectSlug }: {
       <div className="flex items-start justify-between">
         <div>
           <h3 className="text-lg font-semibold text-foreground">{info.name} Agent</h3>
-          <p className="mt-0.5 text-sm text-[#8b8b9e]">{info.description}</p>
+          <p className="mt-0.5 text-sm text-muted-foreground">{info.description}</p>
         </div>
-        <button onClick={handleToggle} className={`relative h-6 w-11 rounded-full transition-colors ${config.is_enabled ? "bg-primary" : "bg-white/10"}`}>
+        <button onClick={handleToggle} className={`relative h-6 w-11 rounded-full transition-colors ${config.is_enabled ? "bg-primary" : "bg-foreground/10"}`}>
           <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${config.is_enabled ? "left-[22px]" : "left-0.5"}`} />
         </button>
       </div>
@@ -104,21 +104,21 @@ export default function AgentConfigPanel({ config, orgSlug, projectSlug }: {
             </div>
             <div className="space-y-1.5">
               <label className={labelClass}>Max tokens</label>
-              <input type="number" value={maxTokens} onChange={(e) => setMaxTokens(e.target.value)} placeholder="Defaut" className="h-9 w-full rounded-lg border border-white/10 bg-[#0c0c14] px-3 text-sm text-foreground" />
+              <input type="number" value={maxTokens} onChange={(e) => setMaxTokens(e.target.value)} placeholder="Defaut" className="h-9 w-full rounded-lg border border-foreground/10 bg-surface px-3 text-sm text-foreground" />
             </div>
           </div>
         </section>
 
-        <div className="h-px bg-white/5 my-5" />
+        <div className="h-px bg-foreground/5 my-5" />
 
         {/* Prompt */}
         <section className="space-y-3">
           <h4 className={sectionClass}>Pre-prompt</h4>
-          <p className="text-xs text-[#8b8b9e]">Instructions envoyees au LLM avant chaque execution.</p>
-          <textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} rows={6} placeholder="Decrivez le contexte, les conventions..." className="w-full resize-y rounded-lg border border-white/10 bg-[#0c0c14] px-3 py-2 text-sm text-foreground placeholder:text-[#8b8b9e] focus:border-primary focus:outline-none" />
+          <p className="text-xs text-muted-foreground">Instructions envoyees au LLM avant chaque execution.</p>
+          <textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} rows={6} placeholder="Decrivez le contexte, les conventions..." className="w-full resize-y rounded-lg border border-foreground/10 bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none" />
         </section>
 
-        <div className="h-px bg-white/5 my-5" />
+        <div className="h-px bg-foreground/5 my-5" />
 
         {/* Triggers */}
         <section className="space-y-3">
@@ -144,7 +144,7 @@ export default function AgentConfigPanel({ config, orgSlug, projectSlug }: {
           </div>
         </section>
 
-        <div className="h-px bg-white/5 my-5" />
+        <div className="h-px bg-foreground/5 my-5" />
 
         {/* Prerequisites */}
         <section className="space-y-3">
@@ -157,7 +157,7 @@ export default function AgentConfigPanel({ config, orgSlug, projectSlug }: {
           </div>
         </section>
 
-        <div className="h-px bg-white/5 my-5" />
+        <div className="h-px bg-foreground/5 my-5" />
 
         {/* Post-execution */}
         <section className="space-y-3">
@@ -178,7 +178,7 @@ export default function AgentConfigPanel({ config, orgSlug, projectSlug }: {
         {/* Agent-specific */}
         {config.agent_type === "challenge" && (
           <>
-            <div className="h-px bg-white/5 my-5" />
+            <div className="h-px bg-foreground/5 my-5" />
             <section className="space-y-3">
               <h4 className={sectionClass}>Parametres Challenge</h4>
               <div className="space-y-1.5">
@@ -186,9 +186,9 @@ export default function AgentConfigPanel({ config, orgSlug, projectSlug }: {
                 <div className="flex items-center gap-3">
                   <input type="range" min={0} max={100} value={threshold} onChange={(e) => setThreshold(Number(e.target.value))} className="flex-1 accent-primary" />
                   <span className="w-10 text-center text-sm text-foreground">{threshold}</span>
-                  <span className="text-xs text-[#8b8b9e]">/100</span>
+                  <span className="text-xs text-muted-foreground">/100</span>
                 </div>
-                <p className="text-[10px] text-[#555566]">Score &gt;= seuil → ticket approuve automatiquement.</p>
+                <p className="text-[10px] text-muted-foreground/60">Score &gt;= seuil → ticket approuve automatiquement.</p>
               </div>
             </section>
           </>
@@ -196,7 +196,7 @@ export default function AgentConfigPanel({ config, orgSlug, projectSlug }: {
 
         {config.agent_type === "fix" && (
           <>
-            <div className="h-px bg-white/5 my-5" />
+            <div className="h-px bg-foreground/5 my-5" />
             <section className="space-y-3">
               <h4 className={sectionClass}>Parametres Fix</h4>
               <div className="space-y-1.5">
@@ -209,7 +209,7 @@ export default function AgentConfigPanel({ config, orgSlug, projectSlug }: {
               </div>
               <div className="space-y-1.5">
                 <label className={labelClass}>Iterations max review → fix</label>
-                <input type="number" min={1} max={10} value={maxIter} onChange={(e) => setMaxIter(Number(e.target.value))} className="w-20 rounded-lg border border-white/10 bg-[#0c0c14] px-2 py-1 text-center text-sm text-foreground" />
+                <input type="number" min={1} max={10} value={maxIter} onChange={(e) => setMaxIter(Number(e.target.value))} className="w-20 rounded-lg border border-foreground/10 bg-surface px-2 py-1 text-center text-sm text-foreground" />
               </div>
             </section>
           </>

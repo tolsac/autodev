@@ -34,12 +34,12 @@ export default function OrgSettingsAudit({ orgSlug }: { orgSlug: string }) {
       <h3 className="text-sm font-medium text-foreground">Journal d'audit</h3>
 
       {(!logs || logs.length === 0) ? (
-        <p className="text-xs text-[#8b8b9e]">Aucun evenement enregistre.</p>
+        <p className="text-xs text-muted-foreground">Aucun evenement enregistre.</p>
       ) : (
         <div className="space-y-1">
           {logs.map((entry) => (
-            <div key={entry.id} className="flex items-start gap-3 rounded-lg border border-white/5 px-4 py-3">
-              <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-white/5 text-[10px] font-medium text-foreground">
+            <div key={entry.id} className="flex items-start gap-3 rounded-lg border border-foreground/5 px-4 py-3">
+              <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-foreground/5 text-[10px] font-medium text-foreground">
                 {entry.user_name?.[0]?.toUpperCase() ?? "S"}
               </div>
               <div className="flex-1 min-w-0">
@@ -48,10 +48,10 @@ export default function OrgSettingsAudit({ orgSlug }: { orgSlug: string }) {
                   {ACTION_LABELS[entry.action] ?? entry.action}
                 </div>
                 {entry.resource_type && (
-                  <div className="text-xs text-[#8b8b9e]">{entry.resource_type}</div>
+                  <div className="text-xs text-muted-foreground">{entry.resource_type}</div>
                 )}
               </div>
-              <span className="flex-shrink-0 text-xs text-[#555566]">{timeAgo(entry.created_at)}</span>
+              <span className="flex-shrink-0 text-xs text-muted-foreground/60">{timeAgo(entry.created_at)}</span>
             </div>
           ))}
         </div>

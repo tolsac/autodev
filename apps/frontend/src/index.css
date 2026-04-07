@@ -1,16 +1,50 @@
 @import "tailwindcss";
 
+/* ── Light / Dark mode variables ── */
+
+:root {
+  --bg: #ffffff;
+  --fg: #0a0a0a;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --muted: #f4f4f5;
+  --muted-fg: #71717a;
+  --border-color: #e4e4e7;
+  --primary-color: #6366f1;
+  --primary-fg: #ffffff;
+  --accent-color: #f4f4f5;
+  --accent-fg: #18181b;
+  --destructive-color: #ef4444;
+}
+
+.dark {
+  --bg: #09090b;
+  --fg: #fafafa;
+  --surface: #0c0c14;
+  --surface-elevated: #13131d;
+  --muted: #27272a;
+  --muted-fg: #a1a1aa;
+  --border-color: #27272a;
+  --primary-color: #6366f1;
+  --primary-fg: #fafafa;
+  --accent-color: #18181b;
+  --accent-fg: #fafafa;
+  --destructive-color: #ef4444;
+}
+
 @theme {
-  --color-background: #09090b;
-  --color-foreground: #fafafa;
-  --color-muted: #27272a;
-  --color-muted-foreground: #a1a1aa;
-  --color-border: #27272a;
-  --color-primary: #6366f1;
-  --color-primary-foreground: #fafafa;
-  --color-accent: #18181b;
-  --color-accent-foreground: #fafafa;
-  --color-destructive: #ef4444;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-fg);
+  --color-border: var(--border-color);
+  --color-primary: var(--primary-color);
+  --color-primary-foreground: var(--primary-fg);
+  --color-accent: var(--accent-color);
+  --color-accent-foreground: var(--accent-fg);
+  --color-destructive: var(--destructive-color);
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 

@@ -57,14 +57,14 @@ export default function TicketCard({
       {...attributes}
       {...listeners}
       onClick={onClick}
-      className={`cursor-pointer rounded-lg border border-white/5 bg-[#13131d] p-3 transition-all hover:border-white/10 hover:shadow-lg ${
+      className={`cursor-pointer rounded-lg border border-foreground/5 bg-surface-elevated p-3 transition-all hover:border-foreground/10 hover:shadow-lg ${
         isDragging ? "z-50 opacity-70 shadow-2xl ring-1 ring-primary/30" : ""
       }`}
     >
       {/* Top row: key + priority + assignee */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-[11px] text-[#8b8b9e]">{ticket.ticket_key}</span>
+          <span className="text-[11px] text-muted-foreground">{ticket.ticket_key}</span>
           {ticket.priority !== "none" && PRIORITY_COLORS[ticket.priority] && (
             <span className={`h-2 w-2 rounded-full ${PRIORITY_COLORS[ticket.priority]}`} />
           )}

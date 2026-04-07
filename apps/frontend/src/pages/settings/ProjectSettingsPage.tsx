@@ -39,13 +39,13 @@ export default function ProjectSettingsPage() {
   return (
     <div className="flex h-full flex-col">
       {/* Header */}
-      <div className="border-b border-white/5 px-6 pt-5 pb-0">
+      <div className="border-b border-foreground/5 px-6 pt-5 pb-0">
         <div className="flex items-center gap-2 mb-4">
           <span className="flex h-6 w-6 items-center justify-center rounded text-xs" style={{ backgroundColor: settings.color + "30", color: settings.color }}>
             {settings.icon || settings.name[0]}
           </span>
           <h1 className="text-lg font-semibold text-foreground">{settings.name}</h1>
-          <span className="text-sm text-[#8b8b9e]">— Settings</span>
+          <span className="text-sm text-muted-foreground">— Settings</span>
         </div>
 
         {/* Tabs */}
@@ -57,7 +57,7 @@ export default function ProjectSettingsPage() {
               className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 ${
                 activeTab === t.key
                   ? "border-primary text-foreground"
-                  : "border-transparent text-[#8b8b9e] hover:text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
               } ${t.key === "danger" ? "text-destructive/70 hover:text-destructive" : ""}`}
             >
               {t.key === "danger" ? "⚠" : t.label}

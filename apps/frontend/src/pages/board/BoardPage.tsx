@@ -53,7 +53,7 @@ export default function BoardPage() {
     <div className="flex h-full flex-col">
       <BoardToolbar project={project} searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
-      <div className="flex-1 overflow-hidden bg-[#09090f]">
+      <div className="flex-1 overflow-hidden bg-background">
         <BoardView
           board={filteredBoard}
           orgSlug={orgSlug!}

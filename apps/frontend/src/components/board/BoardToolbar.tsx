@@ -10,7 +10,7 @@ export default function BoardToolbar({
   onSearchChange: (q: string) => void;
 }) {
   return (
-    <div className="border-b border-white/5 px-6 py-4">
+    <div className="border-b border-foreground/5 px-6 py-4">
       {/* Project name */}
       <h1 className="text-lg font-semibold text-foreground">{project.name}</h1>
 
@@ -21,7 +21,7 @@ export default function BoardToolbar({
         <FilterButton label="Priority" icon={<FlagIcon />} />
 
         <div className="ml-auto relative">
-          <svg className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-[#8b8b9e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
           </svg>
           <input
@@ -29,7 +29,7 @@ export default function BoardToolbar({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search board..."
-            className="h-8 w-52 rounded-lg border border-white/10 bg-[#0c0c14] pl-8 pr-3 text-xs text-foreground placeholder:text-[#8b8b9e] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            className="h-8 w-52 rounded-lg border border-foreground/10 bg-surface pl-8 pr-3 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
       </div>
@@ -39,7 +39,7 @@ export default function BoardToolbar({
 
 function FilterButton({ label, icon }: { label: string; icon: React.ReactNode }) {
   return (
-    <button className="flex h-8 items-center gap-1.5 rounded-lg border border-white/10 bg-[#0c0c14] px-2.5 text-xs text-[#8b8b9e] transition-colors hover:border-white/20 hover:text-foreground">
+    <button className="flex h-8 items-center gap-1.5 rounded-lg border border-foreground/10 bg-surface px-2.5 text-xs text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground">
       {icon}
       {label}
       <svg className="size-3 ml-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

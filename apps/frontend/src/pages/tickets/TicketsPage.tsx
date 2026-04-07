@@ -99,16 +99,16 @@ export default function TicketsPage() {
   return (
     <div className="flex h-full flex-col">
       {/* Toolbar */}
-      <div className="flex items-center justify-between border-b border-white/5 px-6 py-4">
+      <div className="flex items-center justify-between border-b border-foreground/5 px-6 py-4">
         <div className="flex items-center gap-3">
           <h1 className="text-lg font-semibold text-foreground">Tickets</h1>
           {project && <span className="text-sm text-muted-foreground">— {project.name}</span>}
-          {data && <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs text-muted-foreground">{data.count}</span>}
+          {data && <span className="rounded-full bg-foreground/5 px-2 py-0.5 text-xs text-muted-foreground">{data.count}</span>}
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setFiltersOpen(!filtersOpen)}
-            className={`flex h-8 items-center gap-1.5 rounded-lg border px-3 text-xs transition-colors ${filtersOpen ? "border-primary/30 text-primary" : "border-white/10 text-[#8b8b9e] hover:text-foreground"}`}
+            className={`flex h-8 items-center gap-1.5 rounded-lg border px-3 text-xs transition-colors ${filtersOpen ? "border-primary/30 text-primary" : "border-foreground/10 text-muted-foreground hover:text-foreground"}`}
           >
             <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" /></svg>
             Filtres
@@ -126,8 +126,8 @@ export default function TicketsPage() {
 
       {/* Filter bar */}
       {filtersOpen && (
-        <div className="flex items-center gap-2 border-b border-white/5 px-6 py-3">
-          <select value={filters.priority ?? ""} onChange={(e) => setFilter("priority", e.target.value || undefined)} className="h-8 rounded-lg border border-white/10 bg-[#0c0c14] px-2 text-xs text-foreground">
+        <div className="flex items-center gap-2 border-b border-foreground/5 px-6 py-3">
+          <select value={filters.priority ?? ""} onChange={(e) => setFilter("priority", e.target.value || undefined)} className="h-8 rounded-lg border border-foreground/10 bg-surface px-2 text-xs text-foreground">
             <option value="">Priorite</option>
             <option value="urgent">Urgent</option>
             <option value="high">High</option>
@@ -136,14 +136,14 @@ export default function TicketsPage() {
             <option value="none">None</option>
           </select>
           <div className="relative ml-auto">
-            <svg className="absolute left-2 top-1/2 size-3.5 -translate-y-1/2 text-[#8b8b9e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+            <svg className="absolute left-2 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
             <input
               type="text" value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Rechercher..."
-              className="h-8 w-52 rounded-lg border border-white/10 bg-[#0c0c14] pl-7 pr-3 text-xs text-foreground placeholder:text-[#8b8b9e] focus:border-primary focus:outline-none"
+              className="h-8 w-52 rounded-lg border border-foreground/10 bg-surface pl-7 pr-3 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none"
             />
           </div>
-          <button onClick={() => { setSearchParams(new URLSearchParams()); setSearchInput(""); }} className="text-xs text-[#8b8b9e] hover:text-foreground">
+          <button onClick={() => { setSearchParams(new URLSearchParams()); setSearchInput(""); }} className="text-xs text-muted-foreground hover:text-foreground">
             Reinitialiser
           </button>
         </div>
@@ -155,8 +155,8 @@ export default function TicketsPage() {
           <div className="flex h-full items-center justify-center text-muted-foreground">Chargement...</div>
         ) : (
           <table className="w-full text-sm">
-            <thead className="sticky top-0 z-10 bg-[#0c0c14]">
-              <tr className="border-b border-white/5 text-left text-xs uppercase tracking-wider text-muted-foreground">
+            <thead className="sticky top-0 z-10 bg-surface">
+              <tr className="border-b border-foreground/5 text-left text-xs uppercase tracking-wider text-muted-foreground">
                 <th className="w-20 cursor-pointer px-4 py-3 hover:text-foreground" onClick={() => setOrdering("ticket_key")}>Key{orderIcon("ticket_key")}</th>
                 <th className="px-4 py-3">Titre</th>
                 <th className="w-28 px-4 py-3">Colonne</th>
@@ -195,7 +195,7 @@ export default function TicketsPage() {
 
 function TicketRow({ ticket, onClick }: { ticket: TicketListItem; onClick: () => void }) {
   return (
-    <tr onClick={onClick} className="cursor-pointer border-b border-white/[0.03] transition-colors hover:bg-white/[0.02]">
+    <tr onClick={onClick} className="cursor-pointer border-b border-foreground/[0.03] transition-colors hover:bg-foreground/[0.02]">
       <td className="px-4 py-3 font-mono text-xs text-muted-foreground">{ticket.ticket_key}</td>
       <td className="px-4 py-3">
         <div className="truncate font-medium text-foreground">{ticket.title}</div>
@@ -210,7 +210,7 @@ function TicketRow({ ticket, onClick }: { ticket: TicketListItem; onClick: () =>
         )}
       </td>
       <td className="px-4 py-3">
-        <span className="rounded bg-white/5 px-2 py-0.5 text-xs text-muted-foreground">{ticket.column_name}</span>
+        <span className="rounded bg-foreground/5 px-2 py-0.5 text-xs text-muted-foreground">{ticket.column_name}</span>
       </td>
       <td className="px-4 py-3"><PriorityIndicator priority={ticket.priority} /></td>
       <td className="px-4 py-3">

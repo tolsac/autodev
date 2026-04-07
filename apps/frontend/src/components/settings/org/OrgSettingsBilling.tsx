@@ -11,10 +11,10 @@ function ProgressBar({ current, max, label }: { current: number; max: number; la
   const pct = max > 0 ? Math.min((current / max) * 100, 100) : 0;
   const color = pct > 95 ? "bg-destructive" : pct > 80 ? "bg-yellow-500" : "bg-primary";
   return (
-    <div className="rounded-lg border border-white/5 p-4">
-      <div className="mb-1 text-xs text-[#8b8b9e]">{label}</div>
+    <div className="rounded-lg border border-foreground/5 p-4">
+      <div className="mb-1 text-xs text-muted-foreground">{label}</div>
       <div className="text-lg font-semibold text-foreground">{current}/{max}</div>
-      <div className="mt-2 h-1.5 w-full rounded-full bg-white/5">
+      <div className="mt-2 h-1.5 w-full rounded-full bg-foreground/5">
         <div className={`h-1.5 rounded-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
     </div>
@@ -25,7 +25,7 @@ export default function OrgSettingsBilling({ orgSlug }: { orgSlug: string }) {
   const { data: billing, isLoading } = useBilling(orgSlug);
 
   if (isLoading) return <div className="text-muted-foreground">Chargement...</div>;
-  if (!billing) return <div className="text-[#8b8b9e]">Impossible de charger les donnees de facturation.</div>;
+  if (!billing) return <div className="text-muted-foreground">Impossible de charger les donnees de facturation.</div>;
 
   const currentPlan = PLANS.find((p) => p.key === billing.plan) ?? PLANS[0];
 
@@ -36,12 +36,12 @@ export default function OrgSettingsBilling({ orgSlug }: { orgSlug: string }) {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg font-semibold text-foreground">{currentPlan.name}</h3>
-            <p className="text-sm text-[#8b8b9e]">{currentPlan.price === "Sur devis" ? currentPlan.price : `${currentPlan.price}\u20ac/mois`}</p>
+            <p className="text-sm text-muted-foreground">{currentPlan.price === "Sur devis" ? currentPlan.price : `${currentPlan.price}\u20ac/mois`}</p>
             {billing.current_period_end && (
-              <p className="mt-1 text-xs text-[#555566]">Renouvellement : {new Date(billing.current_period_end).toLocaleDateString("fr-FR")}</p>
+              <p className="mt-1 text-xs text-muted-foreground/60">Renouvellement : {new Date(billing.current_period_end).toLocaleDateString("fr-FR")}</p>
             )}
           </div>
-          <button className="h-9 rounded-lg border border-white/10 px-4 text-sm text-[#8b8b9e] hover:text-foreground">Gerer le paiement</button>
+          <button className="h-9 rounded-lg border border-foreground/10 px-4 text-sm text-muted-foreground hover:text-foreground">Gerer le paiement</button>
         </div>
       </div>
 
@@ -52,21 +52,21 @@ export default function OrgSettingsBilling({ orgSlug }: { orgSlug: string }) {
         <ProgressBar current={billing.current_ai_runs_count} max={billing.max_ai_runs_per_month} label="AI Runs ce mois" />
       </div>
 
-      <div className="h-px bg-white/5" />
+      <div className="h-px bg-foreground/5" />
 
       {/* Plan cards */}
       <div>
         <h3 className="mb-3 text-sm font-medium text-foreground">Changer de plan</h3>
         <div className="grid grid-cols-4 gap-2">
           {PLANS.map((plan) => (
-            <div key={plan.key} className={`rounded-lg border p-4 text-center ${plan.key === billing.plan ? "border-primary bg-primary/5" : "border-white/5"}`}>
+            <div key={plan.key} className={`rounded-lg border p-4 text-center ${plan.key === billing.plan ? "border-primary bg-primary/5" : "border-foreground/5"}`}>
               <div className="text-sm font-semibold text-foreground">{plan.name}</div>
-              <div className="mt-1 text-xs text-[#8b8b9e]">{plan.price === "Sur devis" ? plan.price : `${plan.price}\u20ac`}</div>
-              {plan.runs > 0 && <div className="mt-1 text-[10px] text-[#555566]">{plan.runs} runs/mois</div>}
+              <div className="mt-1 text-xs text-muted-foreground">{plan.price === "Sur devis" ? plan.price : `${plan.price}\u20ac`}</div>
+              {plan.runs > 0 && <div className="mt-1 text-[10px] text-muted-foreground/60">{plan.runs} runs/mois</div>}
               {plan.key === billing.plan ? (
                 <div className="mt-3 text-xs text-primary">Plan actuel</div>
               ) : plan.key === "enterprise" ? (
-                <button className="mt-3 h-7 w-full rounded-md border border-white/10 text-xs text-[#8b8b9e]">Contact</button>
+                <button className="mt-3 h-7 w-full rounded-md border border-foreground/10 text-xs text-muted-foreground">Contact</button>
               ) : (
                 <button className="mt-3 h-7 w-full rounded-md bg-primary/10 text-xs text-primary hover:bg-primary/20">Choisir</button>
               )}
@@ -75,10 +75,10 @@ export default function OrgSettingsBilling({ orgSlug }: { orgSlug: string }) {
         </div>
       </div>
 
-      <div className="h-px bg-white/5" />
+      <div className="h-px bg-foreground/5" />
       <div>
         <h3 className="mb-2 text-sm font-medium text-foreground">Historique des factures</h3>
-        <p className="text-xs text-[#8b8b9e]">L'historique sera disponible apres la configuration de Stripe.</p>
+        <p className="text-xs text-muted-foreground">L'historique sera disponible apres la configuration de Stripe.</p>
       </div>
     </div>
   );

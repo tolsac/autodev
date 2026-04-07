@@ -139,19 +139,19 @@ export default function TicketCreateModal({
 
   if (!open) return null;
 
-  const selectClass = "h-10 w-full rounded-lg border border-white/10 bg-[#0c0c14] px-3 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";
-  const labelClass = "text-[11px] font-medium uppercase tracking-wider text-[#8b8b9e]";
+  const selectClass = "h-10 w-full rounded-lg border border-foreground/10 bg-surface px-3 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";
+  const labelClass = "text-[11px] font-medium uppercase tracking-wider text-muted-foreground";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center" onKeyDown={handleKeyDown}>
       <div className="absolute inset-0 bg-black/60" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-[680px] rounded-xl border border-white/5 bg-[#13131d] shadow-2xl">
+      <div className="relative z-10 w-full max-w-[680px] rounded-xl border border-foreground/5 bg-surface-elevated shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/5 px-6 py-4">
+        <div className="flex items-center justify-between border-b border-foreground/5 px-6 py-4">
           <h2 className="text-base font-semibold text-foreground">
             {isEdit ? `Modifier ${ticket!.ticket_key}` : "Nouveau ticket"}
           </h2>
-          <button onClick={onClose} className="flex h-7 w-7 items-center justify-center rounded-md text-[#8b8b9e] hover:bg-white/5 hover:text-foreground">
+          <button onClick={onClose} className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground hover:bg-foreground/5 hover:text-foreground">
             <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
           </button>
         </div>
@@ -159,7 +159,7 @@ export default function TicketCreateModal({
         <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4 max-h-[70vh] overflow-y-auto">
           {error && <div className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-2 text-sm text-destructive">{error}</div>}
 
-          <input ref={titleRef} type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Titre du ticket" maxLength={500} required className="h-12 w-full rounded-lg border border-white/10 bg-[#0c0c14] px-4 text-base text-foreground placeholder:text-[#8b8b9e] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+          <input ref={titleRef} type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Titre du ticket" maxLength={500} required className="h-12 w-full rounded-lg border border-foreground/10 bg-surface px-4 text-base text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
@@ -178,13 +178,13 @@ export default function TicketCreateModal({
 
           <div className="space-y-1.5">
             <label className={labelClass}>Description</label>
-            <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Ajouter une description..." rows={5} className="w-full resize-y rounded-lg border border-white/10 bg-[#0c0c14] px-3 py-2 text-sm text-foreground placeholder:text-[#8b8b9e] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
-            <p className="text-[10px] text-[#8b8b9e]">Markdown supporte</p>
+            <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Ajouter une description..." rows={5} className="w-full resize-y rounded-lg border border-foreground/10 bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+            <p className="text-[10px] text-muted-foreground">Markdown supporte</p>
           </div>
 
           <div className="space-y-1.5">
             <label className={labelClass}>Criteres d'acceptation</label>
-            <textarea value={acceptanceCriteria} onChange={(e) => setAcceptanceCriteria(e.target.value)} placeholder="Liste des criteres..." rows={3} className="w-full resize-y rounded-lg border border-white/10 bg-[#0c0c14] px-3 py-2 text-sm text-foreground placeholder:text-[#8b8b9e] focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+            <textarea value={acceptanceCriteria} onChange={(e) => setAcceptanceCriteria(e.target.value)} placeholder="Liste des criteres..." rows={3} className="w-full resize-y rounded-lg border border-foreground/10 bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
@@ -197,7 +197,7 @@ export default function TicketCreateModal({
             </div>
             <div className="space-y-1.5">
               <label className={labelClass}>Labels</label>
-              <div className="flex min-h-[40px] flex-wrap items-center gap-1 rounded-lg border border-white/10 bg-[#0c0c14] px-2 py-1.5">
+              <div className="flex min-h-[40px] flex-wrap items-center gap-1 rounded-lg border border-foreground/10 bg-surface px-2 py-1.5">
                 {selectedLabels.map((id) => {
                   const label = labels?.find((l) => l.id === id);
                   if (!label) return null;
@@ -211,7 +211,7 @@ export default function TicketCreateModal({
                   );
                 })}
                 {labels && labels.filter((l) => !selectedLabels.includes(l.id)).length > 0 && (
-                  <select value="" onChange={(e) => { if (e.target.value) toggleLabel(e.target.value); }} className="h-6 border-0 bg-transparent text-[10px] text-[#8b8b9e] outline-none">
+                  <select value="" onChange={(e) => { if (e.target.value) toggleLabel(e.target.value); }} className="h-6 border-0 bg-transparent text-[10px] text-muted-foreground outline-none">
                     <option value="">+ Ajouter</option>
                     {labels.filter((l) => !selectedLabels.includes(l.id)).map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}
                   </select>
@@ -229,13 +229,13 @@ export default function TicketCreateModal({
         </form>
 
         {/* Footer */}
-        <div className="flex items-center justify-between border-t border-white/5 px-6 py-3">
-          <p className="text-[11px] text-[#8b8b9e]">
-            <kbd className="rounded border border-white/10 px-1 py-0.5 text-[10px]">Ctrl</kbd>{" + "}<kbd className="rounded border border-white/10 px-1 py-0.5 text-[10px]">Enter</kbd>
+        <div className="flex items-center justify-between border-t border-foreground/5 px-6 py-3">
+          <p className="text-[11px] text-muted-foreground">
+            <kbd className="rounded border border-foreground/10 px-1 py-0.5 text-[10px]">Ctrl</kbd>{" + "}<kbd className="rounded border border-foreground/10 px-1 py-0.5 text-[10px]">Enter</kbd>
             {isEdit ? " pour modifier" : " pour creer le ticket"}
           </p>
           <div className="flex gap-2">
-            <button type="button" onClick={onClose} className="h-9 rounded-lg border border-white/10 px-4 text-sm text-[#8b8b9e] hover:text-foreground">Annuler</button>
+            <button type="button" onClick={onClose} className="h-9 rounded-lg border border-foreground/10 px-4 text-sm text-muted-foreground hover:text-foreground">Annuler</button>
             <button onClick={() => handleSubmit()} disabled={isPending || !title.trim()} className="h-9 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50">
               {isPending ? (isEdit ? "Modification..." : "Creation...") : (isEdit ? "Modifier le ticket" : "Creer le ticket")}
             </button>

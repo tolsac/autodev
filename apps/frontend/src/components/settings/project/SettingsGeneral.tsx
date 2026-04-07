@@ -13,8 +13,8 @@ export default function SettingsGeneral({ settings, orgSlug, projectSlug }: { se
 
   useEffect(() => { setName(settings.name); setDescription(settings.description); setIcon(settings.icon); setColor(settings.color); setTicketPrefix(settings.ticket_prefix); }, [settings]);
 
-  const inputClass = "h-10 w-full rounded-lg border border-white/10 bg-[#0c0c14] px-3 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";
-  const labelClass = "text-xs font-medium text-[#8b8b9e]";
+  const inputClass = "h-10 w-full rounded-lg border border-foreground/10 bg-surface px-3 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";
+  const labelClass = "text-xs font-medium text-muted-foreground";
 
   return (
     <div className="max-w-2xl space-y-6">
@@ -35,7 +35,7 @@ export default function SettingsGeneral({ settings, orgSlug, projectSlug }: { se
           <div className="space-y-1.5">
             <label className={labelClass}>Couleur</label>
             <div className="flex items-center gap-2">
-              <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="h-10 w-10 cursor-pointer rounded-lg border border-white/10 bg-transparent" />
+              <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="h-10 w-10 cursor-pointer rounded-lg border border-foreground/10 bg-transparent" />
               <input value={color} onChange={(e) => setColor(e.target.value)} className={inputClass} />
             </div>
           </div>
@@ -43,9 +43,9 @@ export default function SettingsGeneral({ settings, orgSlug, projectSlug }: { se
         <div className="space-y-1.5">
           <label className={labelClass}>Prefixe des tickets</label>
           <input value={ticketPrefix} onChange={(e) => setTicketPrefix(e.target.value.toUpperCase())} maxLength={10} className={`${inputClass} w-32`} />
-          <p className="text-[11px] text-[#8b8b9e]">Modifier le prefixe n'affecte pas les tickets existants</p>
+          <p className="text-[11px] text-muted-foreground">Modifier le prefixe n'affecte pas les tickets existants</p>
         </div>
-        <p className="text-xs text-[#555566]">Compteur de tickets : {settings.ticket_counter}</p>
+        <p className="text-xs text-muted-foreground/60">Compteur de tickets : {settings.ticket_counter}</p>
         <div className="flex justify-end">
           <button onClick={() => update.mutate({ name, description, icon, color, ticket_prefix: ticketPrefix })} disabled={update.isPending} className="h-9 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50">
             {update.isPending ? "Sauvegarde..." : "Sauvegarder"}
@@ -53,14 +53,14 @@ export default function SettingsGeneral({ settings, orgSlug, projectSlug }: { se
         </div>
       </div>
 
-      <div className="h-px bg-white/5" />
+      <div className="h-px bg-foreground/5" />
 
       <div className="space-y-2">
         <h3 className="text-sm font-medium text-foreground">Archivage</h3>
-        <p className="text-xs text-[#8b8b9e]">
+        <p className="text-xs text-muted-foreground">
           {settings.is_archived ? "Ce projet est archive. Les donnees sont conservees." : "Ce projet est actuellement actif. Les projets archives disparaissent de la sidebar."}
         </p>
-        <button onClick={() => archive.mutate(!settings.is_archived)} disabled={archive.isPending} className="h-9 rounded-lg border border-white/10 px-4 text-sm text-[#8b8b9e] hover:text-foreground">
+        <button onClick={() => archive.mutate(!settings.is_archived)} disabled={archive.isPending} className="h-9 rounded-lg border border-foreground/10 px-4 text-sm text-muted-foreground hover:text-foreground">
           {settings.is_archived ? "Restaurer le projet" : "Archiver le projet"}
         </button>
       </div>
